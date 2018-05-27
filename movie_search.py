@@ -4,25 +4,47 @@ app = Flask(__name__)
 FlaskJSON(app)
 
 #user-movie data table
-USER_MOVIE = {"user1":["harry potter", "titanic"]}
+USER_MOVIE = {"user1":["harry potter", "titanic"], "user2": ["harry potter 2", "bee movie"]}
 MOVIE_GENRE = {"harry potter":["fiction","thriller"], "titanic":["romance"]}
 MOVIE_ACTOR = {"emma watson": ["harry potter"]}
 
 @app.route('/user_movie')
 @as_json
 def view_movie():
-
-    return  (USER_MOVIE) 
+    result = ''
+    for user in USER_MOVIE.keys():
+        if user != 'favicon.ico':
+            result += "- "+user + ":" + " "
+            for movie in USER_MOVIE[user][:-1]:
+                result += movie + ", "
+            if USER_MOVIE[user] != []:
+                result += USER_MOVIE[user][-1] + " "
+    return result[1:]
 
 @app.route('/movie_genre')
 @as_json
 def view_genre():
-    return (MOVIE_GENRE)
+    result = ''
+    for user in MOVIE_GENRE.keys():
+        if user != 'favicon.ico':
+            result += "- "+user + ":" + " "
+            for movie in MOVIE_GENRE[user][:-1]:
+                result += movie + ", "
+            result += MOVIE_GENRE[user][-1] + " "
+    return result[1:]
 
 @app.route('/movie_actor')
 @as_json
 def view_actor():
-    return (MOVIE_ACTOR)
+    
+    result = ''
+    for user in MOVIE_ACTOR.keys():
+        if user != 'favicon.ico':
+            result += "- "+user + ":" + " "
+            for movie in MOVIE_ACTOR[user][:-1]:
+                result += movie + ", "
+            result += MOVIE_ACTOR[user][-1] + " "
+    return result[1:]   
 
 @app.route('/<user>')
 @as_json
@@ -31,12 +53,13 @@ def add_user(user):
     add user only, without adding movie - done, works well, tested in shell
     '''
 
-    if (type(user)==unicode):
-        if user not in USER_MOVIE:
-            USER_MOVIE[user] = []
-            return user + " has been added to the database!"
+
+    if user not in USER_MOVIE:
+        USER_MOVIE[user] = []
+        return user + " has been added to the database!"
     else:
-        return "Improper input"
+        return user + " is already in the database!"
+ 
  
 
 @app.route('/movie/<movie_title>/<movie_genre>/<actors>')
@@ -67,9 +90,6 @@ def add_movie(movie_title, movie_genre, actors):
                 MOVIE_ACTOR[actor] = temp 
                 
     return "added to database"
-    
-
-        
         
     
 
@@ -142,27 +162,27 @@ def search(inpt):
     if inpt in MOVIE_ACTOR:
         for i in MOVIE_ACTOR[inpt]:
             result += i
-            result += "\n" 
+            result += "-" 
       
                              
         
     if inpt in USER_MOVIE:
         for i in USER_MOVIE[inpt]:
             result += i
-            result += "\n"
+            result += "-"
           
        
     if inpt in MOVIE_GENRE:
         for i in MOVIE_GENRE[inpt]:
             
             result +=  i
-            result += "\n"
+            result += "-"
             
             
     if search_genre(inpt) != "No results":
     
         result +=  search_genre(inpt)
-        result += "\n"
+        result += "-"
         
     
        
@@ -185,7 +205,7 @@ def search_genre(genre):
         result = ""
         for movie in movie_list:
             result += movie 
-            result += "\n"
+            result += "-"
             
         
           
