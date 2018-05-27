@@ -8,6 +8,18 @@ USER_MOVIE = {"user1":["harry potter", "titanic"], "user2": ["harry potter 2", "
 MOVIE_GENRE = {"harry potter":["fiction","thriller"], "titanic":["romance"]}
 MOVIE_ACTOR = {"emma watson": ["harry potter"]}
 
+@app.route('/delete/<movie_title>/<user>')
+@as_json
+def delete_movie_user(movie_title,user):
+    temp = USER_MOVIE[user]
+    if movie_title in temp:
+        temp.remove(movie_title)
+        USER_MOVIE[user] = temp
+        print USER_MOVIE
+        return "movie removed from collection"
+    else:
+        return "movie not in the collection"
+
 @app.route('/user_movie')
 @as_json
 def view_movie():
