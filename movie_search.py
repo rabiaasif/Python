@@ -167,33 +167,47 @@ def add_to_database(movie_title, movie_genres, actors, user):
 
 @app.route('/search/<inpt>')
 @as_json 
+
 def search(inpt):
     result = ''
     
     inpt = str(inpt)
     if inpt in MOVIE_ACTOR:
+        result += "plays a role in: "
         for i in MOVIE_ACTOR[inpt]:
             result += i
-            result += "-" 
-      
-                             
-        
+            result += "-"
+    else:
+        if rev_search(inpt, MOVIE_ACTOR) != "No results":
+            result += "actors in " + inpt + " :" 
+            result +=  rev_search(inpt, MOVIE_ACTOR)
+            result += "-"
+                            
     if inpt in USER_MOVIE:
+        result += inpt + "'s movie collection: "
         for i in USER_MOVIE[inpt]:
             result += i
+            result += "-"
+    else:
+        if rev_search(inpt, USER_MOVIE) != "No results":
+            result += "users who have " + inpt + " in their collection: "
+            result +=  rev_search(inpt, USER_MOVIE)
             result += "-"
           
        
     if inpt in MOVIE_GENRE:
+        result += inpt + " has been labeled as these genres: "
         for i in MOVIE_GENRE[inpt]:
             
+            
             result +=  i
-            result += "-"
+            result += "-"              
             
             
-    if search_genre(inpt) != "No results":
+    if rev_search(inpt, MOVIE_GENRE) != "No results":
+        result += "these movies are listed as " + inpt 
     
-        result +=  search_genre(inpt)
+        result +=  rev_search(inpt, MOVIE_GENRE)
         result += "-"
         
     
@@ -205,10 +219,10 @@ def search(inpt):
         
     
    
-def search_genre(genre):
+def rev_search(genre, dic):
     movie_list = []
-    for movie in MOVIE_GENRE.keys():
-        if genre in MOVIE_GENRE[movie]:
+    for movie in dic.keys():
+        if genre in dic[movie]:
             if movie not in movie_list:
                 movie_list.append(movie)
     if movie_list == []:
@@ -217,7 +231,7 @@ def search_genre(genre):
         result = ""
         for movie in movie_list:
             result += movie 
-            result += "-"
+     
             
         
           
