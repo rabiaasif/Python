@@ -124,7 +124,7 @@ def add_to_database(movie_title, movie_genres, actors, user):
         temp = USER_MOVIE[user]
         #check if movie already in database
         if movie_title in temp:
-            print "Movie already in database!"
+            return "Movie already in database!"
         
         #if not we can add it to the database
         else:
@@ -138,7 +138,8 @@ def add_to_database(movie_title, movie_genres, actors, user):
         temp = MOVIE_GENRE[movie_title]
         
         if movie_title in temp:
-            print "Movie already in database!"
+          
+            return "Movie already in database!"
         else:
             temp = MOVIE_GENRE[movie_title]
             for genre in movie_genres:
@@ -154,16 +155,9 @@ def add_to_database(movie_title, movie_genres, actors, user):
             if movie_title not in temp:
                 temp.append(movie_title)
                 MOVIE_ACTOR[actor] = temp                
-            
-        
-   # print MOVIE_GENRE
-    #print USER_MOVIE
-    #print MOVIE_ACTOR
         
     return "Sucessfully entered into database!"
- 
-    
-        
+       
 
 @app.route('/search/<inpt>')
 @as_json 
@@ -181,6 +175,7 @@ def search(inpt):
         if rev_search(inpt, MOVIE_ACTOR) != "No results":
             result += "actors in " + inpt + " :" 
             result +=  rev_search(inpt, MOVIE_ACTOR)
+            
             result += "-"
                             
     if inpt in USER_MOVIE:
@@ -191,15 +186,13 @@ def search(inpt):
     else:
         if rev_search(inpt, USER_MOVIE) != "No results":
             result += "users who have " + inpt + " in their collection: "
-            result +=  rev_search(inpt, USER_MOVIE)
+            result +=  rev_search(inpt, USER_MOVIE) 
             result += "-"
           
        
     if inpt in MOVIE_GENRE:
         result += inpt + " has been labeled as these genres: "
         for i in MOVIE_GENRE[inpt]:
-            
-            
             result +=  i
             result += "-"              
             
@@ -229,8 +222,10 @@ def rev_search(genre, dic):
         return "No results"
     else:
         result = ""
-        for movie in movie_list:
-            result += movie 
+        for movie in movie_list[:-1]:
+            result += movie + ","
+        if movie_list != []:
+            result += movie_list[-1]
      
             
         
