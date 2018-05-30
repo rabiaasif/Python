@@ -8,6 +8,7 @@ USER_MOVIE = {"user1":["harry potter", "titanic"], "user2": ["harry potter 2", "
 MOVIE_GENRE = {"harry potter":["fiction","thriller"], "titanic":["romance"]}
 MOVIE_ACTOR = {"emma watson": ["harry potter"]}
 
+
 @app.route('/delete/<movie_title>/<user>')
 @as_json
 def delete_movie_user(movie_title,user):
@@ -64,10 +65,9 @@ def add_user(user):
     '''
     add user only, without adding movie - done, works well, tested in shell
     '''
-
-
     if user not in USER_MOVIE:
-        USER_MOVIE[user] = []
+        if user !='favicon.ico':
+            USER_MOVIE[user] = []
         return user + " has been added to the database!"
     else:
         return user + " is already in the database!"
@@ -103,8 +103,6 @@ def add_movie(movie_title, movie_genre, actors):
                 
     return "added to database"
         
-    
-
 @app.route('/add/<user>/<movie_genres>/<actors>/<movie_title>')
 @as_json
 def add_to_database(movie_title, movie_genres, actors, user):
@@ -113,9 +111,7 @@ def add_to_database(movie_title, movie_genres, actors, user):
     '''
     movie_genres = parser(movie_genres)
     actors = parser(actors)
-   
-  
-    
+      
     #new entries 
     if user not in USER_MOVIE:
         USER_MOVIE[user]= [movie_title]
