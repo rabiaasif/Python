@@ -1,9 +1,18 @@
 import random
 from flask import Flask, request
-from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask_json import FlaskJSON
 from flask import jsonify
 app = Flask(__name__)
 FlaskJSON(app)
+
+@app.route('/encrp/<length>')
+def encrypt(word,key):
+    alpha = "abcdefghijklmnopqrstuvwxyz"
+    result = ""
+    for i in word:
+        result += alpha[word.find(i) + key]
+    return result
+        
 
 @app.route('/password/<length>')
 def password_generator(length):
@@ -29,10 +38,7 @@ def some_dictionary():
     a = {1:2, 2:3, 3:4, 4:5}
     return jsonify(a)
 
-@app.route('/lst')
-@as_json
-def some_list():
-    l = [1,2,3,4,5,6,7]
+
 
 if __name__ == '__main__':  
     app.run()
