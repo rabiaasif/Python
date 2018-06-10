@@ -1,19 +1,17 @@
-def min(l):
+def min_element(l):
     if l != []:
         temp = l[0]
         for i in l:
             if i < temp:
                 temp = i
-        print temp
         return temp
     return "empty list"
-def max(l):
+def max_element(l):
     if l != []:
         temp = l[0]
         for i in l:
             if i > temp:
                 temp = i
-        print temp
         return temp
     return "empty list"
     
@@ -40,12 +38,26 @@ def count_occurance(l, obj):
                 temp +=1 
         return temp + count_occurance(l[1:], obj)      
     else:
-    
         return count_occurance(l[1:], obj)
 
+def sum_list(l):
+    if l == []:
+        return 0
+    elif len(l) == 1:
+        return l[0]+ sum_list(l[1:])
+    else:
+        return l[0]+ sum_list(l[1:])
         
-        
-        
+     
+def sort_list(l):
+    new_list = []
+    while l != []:
+        get_min = min_element(l)
+        new_list.append(get_min)
+        l.remove(get_min)
+    return new_list
+    
+    
     
     
     
