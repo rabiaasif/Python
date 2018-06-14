@@ -1,3 +1,4 @@
+#list related exercises
 def min_element(l):
     if l != []:
         temp = l[0]
@@ -57,7 +58,12 @@ def sort_list(l):
         l.remove(get_min)
     return new_list
     
-    
+#non list related 
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
     
     
     
