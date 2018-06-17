@@ -64,6 +64,7 @@ def factorial(n):
         return 1
     else:
         return n * factorial(n-1)
+    
 def next_num(n):
     '''
     exercise I was given, given an input like  n = [9, 2, 1] (number is 129) return the next number
@@ -102,7 +103,7 @@ def add_array(array, other):
             array[index] = array[index] + other[0]
             print array[index]
             index +=1     
-def multiple(array, other):
+def multiply(array, other):
    # array = [0,1] -> 10
     #other = [0, 2] -> 20 10x 20 = 200 
     array.reverse()
@@ -114,8 +115,8 @@ def multiple(array, other):
     for i in other:
         new_o += str(i)
     
-    for i in str(int(new_o)*int(new_a)):
-        print i
+    print str(int(new_o)*int(new_a)):
+        
     
 
         
