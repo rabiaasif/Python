@@ -1,32 +1,130 @@
+import doctest
 #list related exercises
 def min_element(l):
+    """
+    >>> min_element([100,"1", 5, "43"])
+    '1'
+    
+    >>> min_element([])
+    Traceback (most recent call last):
+      File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/doctest.py", line 1315, in __run
+        compileflags, 1) in test.globs
+      File "<doctest __main__.min_element[1]>", line 1, in <module>
+        min_element([])
+      File "<wingdb_compile>", line 29, in min_element
+    ValueError: List is empty
+    
+    >>> min_element([100,-1, -100, 1000])
+    -100
+    
+    >>> min_element([100,0, 143, 1000])
+    0
+    
+    >>> min_element([100,"test", 143, 1000])
+    0
+    """
+     
     if l != []:
-        temp = l[0]
+        temp = int(l[0])
         for i in l:
-            if i < temp:
+            if int(i) < int(temp):
                 temp = i
         return temp
-    return "empty list"
+    else:
+        raise ValueError("List is empty")
+
 def max_element(l):
+    """
+    >>> max_element([100,"1", 5, "43"])
+    100
+    
+    >>> max_element([])
+    Traceback (most recent call last):
+      File "/System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/doctest.py", line 1315, in __run
+        compileflags, 1) in test.globs
+      File "<doctest __main__.min_element[1]>", line 1, in <module>
+        min_element([])
+      File "<wingdb_compile>", line 29, in min_element
+    ValueError: List is empty
+    
+    >>> max_element([100,-1, -100, 1000])
+    1000
+    
+    >>> max_element([100,0, 143, 1000])
+    1000
+    
+    >>> max_element([1000,"test", 143, 1000])
+    1000
+    """    
     if l != []:
-        temp = l[0]
+        temp = int(l[0])
         for i in l:
-            if i > temp:
+            if int(i) > int(temp):
                 temp = i
         return temp
-    return "empty list"
+    else:
+        raise ValueError("List is empty")
     
 def rev(l):
+    """
+    >>> rev([100,"1", 5, "43"])
+    ['43', 5, '1', 100]
+    
+    >>> rev([])
+    []
+    
+    >>> rev([100,-1, -100, 1000])
+    [1000, -100, -1, 100]
+    
+    >>> rev([100,0, 143, 1000])
+    [1000, 143, 0, 100]
+    
+    >>> rev([1000,"test", 143, 1000])
+    [1000, 143, 'test', 1000]
+    """      
     new = []
     if l != []:
         for i in l:
             temp = [i]
             new = temp + new 
     return new 
+
 def rev2(l):
+    """
+    >>> rev2([100,"1", 5, "43"])
+    ['43', 5, '1', 100]
+    
+    >>> rev2([])
+    []
+    
+    >>> rev2([100,-1, -100, 1000])
+    [1000, -100, -1, 100]
+    
+    >>> rev2([100,0, 143, 1000])
+    [1000, 143, 0, 100]
+    
+    >>> rev2([1000,"test", 143, 1000])
+    [1000, 143, 'test', 1000]
+    """     
     return l[::-1]
 
 def count_occurance(l, obj):
+    """
+    >>> count_occurance([1,1,1,1], 1)
+    4
+    
+    >>> count_occurance([2,1,4,1,[10,01,1,1]], 1)
+    5
+    
+    >>> count_occurance([], 1)
+    0
+    
+    >>> rev2([100,0, 143, 1000])
+    [1000, 143, 0, 100]
+    
+    >>> rev2([1000,"test", 143, 1000])
+    [1000, 143, 'test', 1000]
+    """       
  
     if l == []:
         return 0
@@ -42,6 +140,26 @@ def count_occurance(l, obj):
         return count_occurance(l[1:], obj)
 
 def sum_list(l):
+    """
+    >>> count_occurance([1,1,1,1], 1)
+    4
+    
+    >>> count_occurance([2,1,4,1,[10,01,1,1]], 1)
+    5
+    
+    >>> count_occurance([], 1)
+    0
+    
+    >>> sum_list([])
+    0
+    
+    >>> sum_list([1,2,3,4,5])
+    15
+    
+    >>> sum_list([-1,1])
+    0
+    """     
+    
     if l == []:
         return 0
     elif len(l) == 1:
@@ -51,6 +169,19 @@ def sum_list(l):
         
      
 def sort_list(l):
+    """
+    >>> sort_list([1,2,3,4])
+    [1, 2, 3, 4]
+    
+    >>> sort_list([])
+    []
+    
+    >>> sort_list([4])
+    [4]
+    
+    >>> sort_list([4,3,2,1])
+    [1, 2, 3, 4]
+    """     
     new_list = []
     while l != []:
         get_min = min_element(l)
@@ -115,7 +246,12 @@ def multiply(array, other):
     for i in other:
         new_o += str(i)
     
-    print str(int(new_o)*int(new_a)):
+    print str(int(new_o)*int(new_a))
+    
+    
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
         
     
 
