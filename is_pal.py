@@ -35,5 +35,20 @@ def occurs_once(lst):
         return result #return list of results that occur more than once
 
         
-    
+def occurs_once_2(lst):
+    '''
+    2) Find the only element in an array that only occurs once.
+    ex: [1, 3, 3, 4, 9, 2, 3, 1, 9, 4] ---> 2
+    '''
+    temp = {} #store values in dictionary to keep count of occurences 
+    for i in lst:
+        if i in temp:
+            temp[i] += 1
+        else: 
+            temp[i] = 0
+            
+    for key in temp: 
+        if temp[key] == 0:
+            return key
+    return 'No Value' #if no values occur once 
     
