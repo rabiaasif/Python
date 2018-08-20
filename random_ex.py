@@ -248,10 +248,24 @@ def multiply(array, other):
     
     print str(int(new_o)*int(new_a))
     
-    
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+def isogram(phrase):
+    tracker = {}
+    for i in phrase:
+        if i in tracker:
+            tracker[i] += 1
+        else:
+            tracker[i] = 0
+    for i in tracker.values():
+        if i > 0:
+            return False
+    return True
+        
+
+
+   
+#if __name__ == "__main__":
+    #import doctest
+    #doctest.testmod()
         
     
 
