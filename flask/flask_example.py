@@ -2,8 +2,34 @@ import random
 from flask import Flask, request
 from flask_json import FlaskJSON
 from flask import jsonify
+from flaskext.mysql import MySQL
 app = Flask(__name__)
 FlaskJSON(app)
+
+#intialize database using mysql before entering in database
+mysql = MySQL()
+app.config['MYSQL_DATABASE_USER'] = 'root'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'password1'
+app.config['MYSQL_DATABASE_DB'] = 'test'
+app.config['MYSQL_DATABASE_HOST'] = 'localhost'
+mysql.init_app(app)
+conn = mysql.connect()
+cursor = conn.cursor() 
+
+   
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
+@app.route('/shutdown')
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+
 
 @app.route('/encrp/<length>')
 def encrypt(word,key):
@@ -37,6 +63,14 @@ def return_string():
 def some_dictionary():
     a = {1:2, 2:3, 3:4, 4:5}
     return jsonify(a)
+
+@app.route('/db')
+def enter_db():
+    cursor.execute(
+            """INSERT INTO 
+                generation_marble (material, nickname,generation,size,size_name, pattern, origin, grade, colours_string,image_path,is_purchased, is_handmade, games_played, user_id)
+            VALUES (%s)""", ("any name here"))
+    conn.commit() 
 
 
 

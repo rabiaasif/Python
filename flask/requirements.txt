@@ -1,0 +1,3 @@
+sudo pip install Flask
+sudo pip install flask-mysql
+pip install requests
